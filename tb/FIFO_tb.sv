@@ -39,16 +39,16 @@ class driver;
   virtual f_in fi; 
   transaction td;
   mailbox #(transaction) mbx;
-  int i;
+  
   
   function new(mailbox #(transaction) mbx);
     this.mbx=mbx;
   endfunction
   
-  event di;
+  
   
   task run;
-    //reset();
+    
     forever begin
      
       mbx.get(td);
@@ -120,10 +120,11 @@ class monitor;
     forever begin
       tm=new();
       @(posedge fi.clk);
+      @(posedge fi.clk);
       tm.w_en=fi.w_en;
       tm.r_en=fi.r_en;
       tm.w_d=fi.w_d;
-      @(posedge fi.clk);
+     // @(posedge fi.clk);
       tm.r_d=fi.r_d;
       mbx.put(tm);
     end
